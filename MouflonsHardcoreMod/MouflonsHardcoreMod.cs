@@ -14,7 +14,6 @@ namespace MouflonsHardcoreMod
     public class Core : ModSystem
     {
         ICoreAPI api;
-        List<string> lesblocs = new List<string> { "packeddirt", "aridpackeddirt", "etc" };
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -44,7 +43,6 @@ namespace MouflonsHardcoreMod
                 
                 if (block.BlockMaterial.ToString() == "Soil")
                 {
-                    //MessageBox.Show(block.Code.GetName());
                     block.BlockBehaviors = block.BlockBehaviors.Append(new JumpRestriction(block));
                 }
             }
