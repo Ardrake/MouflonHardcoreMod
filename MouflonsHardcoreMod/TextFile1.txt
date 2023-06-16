@@ -1,0 +1,61 @@
+﻿using Vintagestory.API.Client;
+using Vintagestory.API.Common;
+using Vintagestory.API.Server;
+using Vintagestory.GameContent;
+
+[assembly: ModInfo("ExampleMod")]
+
+namespace ExampleMod;
+
+class Core : ModSystem
+{
+    public override void Start(ICoreAPI api)
+    {
+        base.Start(api);
+
+        api.RegisterBlockBehaviorClass("BlockBehaviorExample", typeof(BlockBehaviorExample));
+        api.RegisterBlockClass("BlockExample", typeof(BlockExample));
+        api.RegisterBlockEntityBehaviorClass("BlockEntityBehaviorExample", typeof(BlockEntityBehaviorExample));
+        api.RegisterBlockEntityClass("BlockEntityExample", typeof(BlockEntityExample));
+        api.RegisterCollectibleBehaviorClass("CollectibleBehaviorExample", typeof(CollectibleBehaviorExample));
+        api.RegisterEntity("EntityExample", typeof(EntityExample));
+        api.RegisterEntityBehaviorClass("exampleproperty", typeof(EntityBehaviorExample));
+        api.RegisterItemClass("ItemExample", typeof(ItemExample));
+
+        api.World.Logger.Event("started 'ExampleMod' mod");
+    }
+
+    public override void StartClientSide(ICoreClientAPI api)
+    {
+        base.StartClientSide(api);
+        api.World.Logger.Event("started 'ExampleMod' mod");
+    }
+
+    public override void StartServerSide(ICoreServerAPI api)
+    {
+        base.StartServerSide(api);
+        api.World.Logger.Event("started 'ExampleMod' mod");
+    }
+
+    public override void AssetsFinalize(ICoreAPI api)
+    {
+        foreach (var item in api.World.Items)
+        {
+
+        }
+
+        foreach (var block in api.World.Blocks)
+        {
+
+        }
+    }
+}
+
+
+public override void AssetsFinalize(ICoreAPI api)
+{
+    foreach (var block in api.World.Blocks)
+    {
+        block.BlockBehaviors = block.BlockBehaviors.Append(new BlockBehaviorFodbidPlaceWhileJumping(block));
+    }
+}
